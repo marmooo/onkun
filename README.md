@@ -11,7 +11,7 @@ npm install onkun
 const Onkun = require('onkun');
 
 const dict = new Onkun();
-dict.get('学');  // --> [[まなぶ],[がく]]
+dict.get('学');  // --> [[まなぶ], [がく]]
 ```
 
 ## References
