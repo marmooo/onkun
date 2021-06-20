@@ -1,22 +1,33 @@
 # onkun
+
 Kanji on/kun-reading dictionary.
 
-## Installation
-```
-npm install onkun
-```
+## Usage (Deno)
 
-## Usage
 ```
-const Onkun = require('onkun');
+import { Onkun } from "onkun/mod.js";
 
-const dict = new Onkun();
+const dict = await Onkun.load();
 dict.get('学');  // --> [[まなぶ], [がく]]
 ```
 
+## Usage (Node.js)
+
+```
+// npm install onkun
+const Onkun = require("onkun");
+
+async function main() {
+  const dict = await Onkun.load();
+  dict.get('学');  // --> [[まなぶ], [がく]]
+}
+main();
+```
+
 ## References
+
 - [Unihan.txt](https://masao.jpn.org/etc/unihan-onkun.html)
 
 ## License
-MIT
 
+MIT
