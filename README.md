@@ -5,9 +5,10 @@ Kanji on/kun-reading dictionary.
 ## Usage (Deno)
 
 ```
+// git clone https://github.com/marmooo/onkun
 import { Onkun } from "onkun/mod.js";
 
-const dict = await Onkun.load();
+const dict = await Onkun.load("onkun/Unihan-kJapaneseOnKun.txt");
 dict.get('学');  // --> [[まなぶ], [がく]]
 ```
 

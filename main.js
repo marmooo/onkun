@@ -2,11 +2,12 @@ const fs = require("fs");
 const readline = require("readline");
 
 class Onkun {
-  static async load() {
+  static async load(filepath) {
     const dict = {};
-    const fileReader = fs.createReadStream(
-      __dirname + "/Unihan-kJapaneseOnKun.txt",
-    );
+    if (!filepath) {
+      filepath = __dirname + "/Unihan-kJapaneseOnKun.txt";
+    }
+    const fileReader = fs.createReadStream(filepath);
     const rl = readline.createInterface({ input: fileReader });
     for await (const line of rl) {
       let [kanji, on, kun] = line.split("\t");
