@@ -11,7 +11,7 @@ await build({
   },
   package: {
     name: "@marmooo/romaji",
-    version: Deno.args[0],
+    version: "0.2.0",
     description: "Kanji on/kun-reading dictionary",
     license: "MIT",
     main: "mod.js",
