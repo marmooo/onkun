@@ -2,32 +2,24 @@
 
 Kanji on/kun-reading dictionary.
 
-## Usage (Deno)
+## Usage
 
 ```
-// git clone https://github.com/marmooo/onkun
-import { Onkun } from "onkun/mod.js";
+import { Onkun } from "onkun";
 
-const dict = await Onkun.load("onkun/Unihan-kJapaneseOnKun.txt");
-dict.get('学');  // --> [[まなぶ], [がく]]
+const onkun = new Onkun();
+await onkun.loadJoyo("data/joyo-2017.csv");
+await onkun.loadUnihan("data/Unihan-2023-07-15.csv");
+
+onkun.get("漢"); // --> { 小学: ["カン"], 中学: [], 高校: [], Unihan: ["カン", "タン", "から"] }
 ```
 
-## Usage (Node.js)
+## Attribution
 
-```
-// npm install onkun
-const Onkun = require("onkun");
-
-async function main() {
-  const dict = await Onkun.load();
-  dict.get('学');  // --> [[まなぶ], [がく]]
-}
-main();
-```
-
-## References
-
-- [Unihan.txt](https://masao.jpn.org/etc/unihan-onkun.html)
+- [音訓の小・中・高等学校段階別割り振り表（平成29年3月）](https://www.mext.go.jp/a_menu/shotou/new-cs/1385768.htm)
+- [常用漢字表（平成22年11月30日）](https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/kanji/joyokanjisakuin/)
+- [送り仮名の付け方（平成22年11月30日）](https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/okurikana/)
+- [Unihan Database](https://www.unicode.org/Public/UCD/latest/ucd/Unihan.zip)
 
 ## License
 

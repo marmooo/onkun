@@ -1,42 +1,66 @@
 import { readLines } from "https://deno.land/std/io/mod.ts";
 
-class Onkun {
-  static async fetch(url) {
-    const dict = await fetch(url)
-      .then((response) => response.text())
-      .then((text) => {
-        const d = {};
-        text.split("\n").forEach((line) => {
-          if (!line) return;
-          let [kanji, on, kun] = line.split("\t");
-          if (on) on = on.split(" ");
-          if (kun) kun = kun.split(" ");
-          d[kanji] = [on, kun];
-        });
-        return d;
-      }).catch((e) => {
-        console.log(e);
+export class Onkun {
+  async fetchJoyo(url, options) {
+    const response = await fetch(url, options);
+    const text = await response.text();
+    text.trimEnd().split("\n").forEach(() => {
+      const arr = line.split(",").map((str) => {
+        if (str.length > 0) {
+          return str.split(" ");
+        } else {
+          return [];
+        }
       });
-    const onkun = new Onkun();
-    onkun.dict = dict;
-    return onkun;
+      const kanji = arr[0];
+      if (kanji in this.dict === false) this.dict[kanji] = {};
+      const info = this.dict[kanji];
+      info["小学"] = arr[1];
+      info["中学"] = arr[2];
+      info["高校"] = arr[3];
+    });
   }
 
-  static async load(filepath) {
-    const dict = {};
-    if (!filepath) {
-      filepath = "./onkun/Unihan-kJapaneseOnKun.txt";
+  async fetchUnihan(url, options) {
+    const response = await fetch(url, options);
+    const text = await response.text();
+    text.trimEnd().split("\n").forEach(() => {
+      const [kanji, onkun] = line.split(",");
+      if (kanji in this.dict === false) this.dict[kanji] = {};
+      const info = this.dict[kanji];
+      info["Unihan"] = onkun.split(" ");
+    });
+  }
+
+  async loadJoyo(filePath, options) {
+    const file = await Deno.open(filePath, options);
+    for await (const line of readLines(file)) {
+      const arr = line.split(",").map((str) => {
+        if (str.length > 0) {
+          return str.split(" ");
+        } else {
+          return [];
+        }
+      });
+      const kanji = arr[0];
+      if (kanji in this.dict === false) this.dict[kanji] = {};
+      const info = this.dict[kanji];
+      info["小学"] = arr[1];
+      info["中学"] = arr[2];
+      info["高校"] = arr[3];
     }
-    const fileReader = await Deno.open(filepath);
-    for await (const line of readLines(fileReader)) {
-      let [kanji, on, kun] = line.split("\t");
-      if (on) on = on.split(" ");
-      if (kun) kun = kun.split(" ");
-      dict[kanji] = [on, kun];
+    file.close();
+  }
+
+  async loadUnihan(filePath, options) {
+    const file = await Deno.open(filePath, options);
+    for await (const line of readLines(file)) {
+      const [kanji, onkun] = line.split(",");
+      if (kanji in this.dict === false) this.dict[kanji] = {};
+      const info = this.dict[kanji];
+      info["Unihan"] = onkun.split(" ");
     }
-    const onkun = new Onkun();
-    onkun.dict = dict;
-    return onkun;
+    file.close();
   }
 
   constructor() {
@@ -47,5 +71,3 @@ class Onkun {
     return this.dict[word];
   }
 }
-
-export { Onkun };
