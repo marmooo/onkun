@@ -10,8 +10,8 @@ await build({
     deno: true,
   },
   package: {
-    name: "@marmooo/romaji",
-    version: "0.2.0",
+    name: "onkun",
+    version: "0.2.1",
     description: "Kanji on/kun-reading dictionary",
     license: "MIT",
     main: "mod.js",
