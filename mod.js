@@ -4,7 +4,7 @@ export class Onkun {
   async fetchJoyo(url, options) {
     const response = await fetch(url, options);
     const text = await response.text();
-    text.trimEnd().split("\n").forEach(() => {
+    text.trimEnd().split("\n").forEach((line) => {
       const arr = line.split(",").map((str) => {
         if (str.length > 0) {
           return str.split(" ");
@@ -24,7 +24,7 @@ export class Onkun {
   async fetchUnihan(url, options) {
     const response = await fetch(url, options);
     const text = await response.text();
-    text.trimEnd().split("\n").forEach(() => {
+    text.trimEnd().split("\n").forEach((line) => {
       const [kanji, onkun] = line.split(",");
       if (kanji in this.dict === false) this.dict[kanji] = {};
       const info = this.dict[kanji];
