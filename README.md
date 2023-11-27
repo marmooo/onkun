@@ -9,9 +9,10 @@ import { Onkun } from "onkun";
 
 const onkun = new Onkun();
 await onkun.loadJoyo("data/joyo-2017.csv");
-await onkun.loadUnihan("data/Unihan-2023-07-15.csv");
+await onkun.load("Joyo", "data/joyo-2010.csv");
+await onkun.load("Unihan", "data/Unihan-2023-07-15.csv");
 
-onkun.get("漢"); // --> { 小学: ["カン"], 中学: [], 高校: [], Unihan: ["カン", "タン", "から"] }
+onkun.get("漢"); // --> { 小学: ["カン"], 中学: [], 高校: [], Joyo: ["カン"], Unihan: ["カン", "タン", "から"] }
 ```
 
 ## Attribution

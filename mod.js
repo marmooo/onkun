@@ -52,13 +52,13 @@ export class Onkun {
     file.close();
   }
 
-  async loadUnihan(filePath, options) {
+  async load(name, filePath, options) {
     const file = await Deno.open(filePath, options);
     for await (const line of readLines(file)) {
       const [kanji, onkun] = line.split(",");
       if (kanji in this.dict === false) this.dict[kanji] = {};
       const info = this.dict[kanji];
-      info["Unihan"] = onkun.split(" ");
+      info[name] = onkun.split(" ");
     }
     file.close();
   }
