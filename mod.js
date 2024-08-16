@@ -1,4 +1,4 @@
-import { readLines } from "https://deno.land/std/io/mod.ts";
+import { TextLineStream } from "jsr:@std/streams/text-line-stream";
 
 export class Onkun {
   async fetchJoyo(url, options) {
@@ -34,7 +34,10 @@ export class Onkun {
 
   async loadJoyo(filePath, options) {
     const file = await Deno.open(filePath, options);
-    for await (const line of readLines(file)) {
+    const lineStream = file.readable
+      .pipeThrough(new TextDecoderStream())
+      .pipeThrough(new TextLineStream());
+    for await (const line of lineStream) {
       const arr = line.split(",").map((str) => {
         if (str.length > 0) {
           return str.split(" ");
@@ -54,7 +57,10 @@ export class Onkun {
 
   async load(name, filePath, options) {
     const file = await Deno.open(filePath, options);
-    for await (const line of readLines(file)) {
+    const lineStream = file.readable
+      .pipeThrough(new TextDecoderStream())
+      .pipeThrough(new TextLineStream());
+    for await (const line of lineStream) {
       const [kanji, onkun] = line.split(",");
       if (kanji in this.dict === false) this.dict[kanji] = {};
       const info = this.dict[kanji];

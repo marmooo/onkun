@@ -6,8 +6,13 @@ await emptyDir("./npm");
 await build({
   entryPoints: ["./mod.js"],
   outDir: "./npm",
+  typeCheck: false,
   shims: {
     deno: true,
+    custom: [{
+      package: { name: "stream/web" },
+      globalNames: ["TransformStream"],
+    }],
   },
   package: {
     name: "onkun",

@@ -1,6 +1,6 @@
-import { assertEquals } from "https://deno.land/std/assert/mod.ts";
-import { readLines } from "https://deno.land/std/io/mod.ts";
 import { Onkun } from "./mod.js";
+import { TextLineStream } from "jsr:@std/streams/text-line-stream";
+import { assertEquals } from "jsr:@std/assert/equals";
 
 Deno.test("Simple check", async () => {
   const onkun = new Onkun();
@@ -17,7 +17,10 @@ Deno.test("2010/2017 check", async () => {
   await onkun.loadJoyo("data/joyo-2017.csv");
   await onkun.load("Joyo", "data/joyo-2010.csv");
   const file = await Deno.open("data/joyo-2010.csv");
-  for await (const line of readLines(file)) {
+  const lineStream = file.readable
+    .pipeThrough(new TextDecoderStream())
+    .pipeThrough(new TextLineStream());
+  for await (const line of lineStream) {
     const kanji = line.split(",")[0];
     const yomis = onkun.get(kanji);
     const yomis2017 = [];

@@ -1,4 +1,4 @@
-import { TextLineStream } from "https://deno.land/std/streams/mod.ts";
+import { TextLineStream } from "jsr:@std/streams/text-line-stream";
 
 async function buildUnihan(inFile, outFile) {
   const result = [];
