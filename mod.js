@@ -52,7 +52,6 @@ export class Onkun {
       info["中学"] = arr[2];
       info["高校"] = arr[3];
     }
-    file.close();
   }
 
   async load(name, filePath, options) {
@@ -66,7 +65,6 @@ export class Onkun {
       const info = this.dict[kanji];
       info[name] = onkun.split(" ");
     }
-    file.close();
   }
 
   constructor() {

@@ -29,5 +29,4 @@ Deno.test("2010/2017 check", async () => {
     yomis2017.push(...yomis["高校"]);
     assertEquals(yomis2017.sort(), yomis["Joyo"].sort());
   }
-  file.close();
 });
