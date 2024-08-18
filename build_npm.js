@@ -16,7 +16,7 @@ await build({
   },
   package: {
     name: "onkun",
-    version: "0.2.7",
+    version: "0.2.8",
     description: "Kanji on/kun-reading dictionary",
     license: "MIT",
     main: "mod.js",
