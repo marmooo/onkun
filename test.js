@@ -1,6 +1,6 @@
 import { Onkun } from "./mod.js";
-import { TextLineStream } from "jsr:@std/streams/text-line-stream";
-import { assertEquals } from "jsr:@std/assert/equals";
+import { TextLineStream } from "@std/streams";
+import { assertEquals } from "@std/assert";
 
 Deno.test("Simple check", async () => {
   const onkun = new Onkun();
