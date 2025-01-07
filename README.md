@@ -15,6 +15,10 @@ await onkun.load("Unihan", "data/Unihan-2023-07-15.csv");
 onkun.get("漢"); // --> { 小学: ["カン"], 中学: [], 高校: [], Joyo: ["カン"], Unihan: ["カン", "タン", "から"] }
 ```
 
+## Build
+
+`deno run -RW build-dict.js`
+
 ## Attribution
 
 - [音訓の小・中・高等学校段階別割り振り表（平成29年3月）](https://www.mext.go.jp/a_menu/shotou/new-cs/1385768.htm)
