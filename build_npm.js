@@ -1,12 +1,16 @@
-import { copySync } from "jsr:@std/fs/copy";
-import { build, emptyDir } from "jsr:@deno/dnt";
+import { copySync } from "@std/fs/copy";
+import { build, emptyDir } from "@deno/dnt";
 
 await emptyDir("./npm");
 
 await build({
   entryPoints: ["./mod.js"],
   outDir: "./npm",
+  importMap: "deno.json",
   typeCheck: false,
+  compilerOptions: {
+    lib: ["ESNext"],
+  },
   shims: {
     deno: true,
     custom: [{
